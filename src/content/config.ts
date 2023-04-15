@@ -5,7 +5,9 @@ export const collections = {
   project: defineCollection({
     schema: z.object({
       title: z.string(),
-      image: z.string(),
-    })
-  })
+      description: z.string(),
+      mainImage: z.string(),
+      images: z.array(z.string()),
+    }),
+  }),
 };

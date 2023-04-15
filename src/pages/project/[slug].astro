@@ -1,11 +1,10 @@
 ---
 import { getCollection, CollectionEntry } from "astro:content";
-// import { ROUTES } from "../../consts";
 import Layout from "../../layouts/Layout.astro";
 
+const projects = await getCollection("project");
 export async function getStaticPaths() {
   const projects = await getCollection("project");
-
   return projects.map((project) => {
     return {
       params: { slug: project.slug },
@@ -21,14 +20,44 @@ interface Props {
 }
 
 const { project } = Astro.props;
+const currentIndex = projects.findIndex((x) => x.id == project.id);
+const next =
+  currentIndex + 1 < projects.length ? projects[currentIndex + 1] : null;
+const prev = currentIndex - 1 >= 0 ? projects[currentIndex - 1] : null;
+
 const { Content } = await project.render();
 ---
 
 <Layout title={project.data.title}>
-  <main class="flex flex-col items-center">
-    <!-- <a class="text-blue-500 underline" href={ROUTES.blog}>Blog</a> -->
-    <article class="prose prose-slate">
-      <Content />
-    </article>
+  <main class="flex flex-col px-20">
+    <h1 class="text-5xl mb-12">{project.data.title}</h1>
+    <h2 class="text-lg max-w-4xl mb-20">{project.data.description}</h2>
+
+    <div class="grid grid-cols-2 masonry gap-8">
+      {project.data.images.map((x) => <img src={x} />)}
+    </div>
+
+    <div class="flex">
+      {
+        prev && (
+          <a class="text-2xl" href={`/project/${prev.slug}`}>
+            &lsaquo;{prev.data.title}
+          </a>
+        )
+      }
+      {
+        next && (
+          <a class="ml-auto text-2xl" href={`/project/${next.slug}`}>
+            {next.data.title} &rsaquo;
+          </a>
+        )
+      }
+    </div>
   </main>
 </Layout>
+
+<style>
+  .masonry {
+    grid-template-rows: masonry;
+  }
+</style>

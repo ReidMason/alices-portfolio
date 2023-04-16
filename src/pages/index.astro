@@ -1,8 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { getCollection } from "astro:content";
+import { getProjects } from "../utils";
+// import { Image } from "@astrojs/image/components";
 
-let projects = await getCollection("project");
+let projects = await getProjects();
 ---
 
 <Layout title="Alice Collins">
@@ -17,6 +18,7 @@ let projects = await getCollection("project");
                   src={project.data.mainImage}
                   class="object-cover absolute group-hover:opacity-90 w-full h-full transition-opacity duration-200"
                 />
+                {/* <Image src={project.data.mainImage} width /> */}
               </div>
               <p class="mt-3 text-xl">{project.data.title}</p>
             </a>

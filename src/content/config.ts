@@ -7,7 +7,10 @@ export const collections = {
       title: z.string(),
       description: z.string(),
       mainImage: z.string(),
-      images: z.array(z.string()),
+      images: z.array(z.object({
+        url: z.string(),
+        alt: z.string(),
+      })),
     }),
   }),
 };

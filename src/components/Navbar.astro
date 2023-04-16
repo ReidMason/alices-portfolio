@@ -3,9 +3,8 @@ import NavigationItems from "./NavigationItems.astro";
 import SocialMediaLinks from "./SocialMediaLinks.astro";
 ---
 
-<!-- gap-12 -->
-<nav class="text-xl flex flex-col items-baseline w-full mb-14 md:mb-28">
-  <div class="flex justify-between w-full">
+<nav class="text-xl flex items-baseline w-full gap-12 mb-14 md:mb-28">
+  <div class="flex justify-between w-full md:w-auto">
     <a class="text-4xl" href="/">Alice Collins</a>
     <!-- Burger menu toggle -->
     <div class="ml-auto md:hidden">
@@ -27,7 +26,7 @@ import SocialMediaLinks from "./SocialMediaLinks.astro";
   </div>
   <!-- Burger menu -->
   <div
-    class="hidden pt-24 top-0 left-0 absolute w-full h-full pointer-events-none z-10"
+    class="hidden md:hidden pt-24 top-0 left-0 absolute w-full h-screen pointer-events-none z-10"
     id="burger-menu"
   >
     <div
@@ -38,6 +37,7 @@ import SocialMediaLinks from "./SocialMediaLinks.astro";
         <SocialMediaLinks />
       </div>
     </div>
+    <div class="top-0 left-0 bg-white h-screen"></div>
   </div>
   <!-- Navigation items -->
   <div class="hidden md:flex gap-4">
@@ -59,7 +59,6 @@ import SocialMediaLinks from "./SocialMediaLinks.astro";
       if (!burgerMenu || !body) return;
 
       burgerMenu.classList.toggle("hidden");
-      console.log("EHE");
 
       if (burgerMenu.classList.contains("hidden")) {
         body.classList.remove("overflow-hidden");

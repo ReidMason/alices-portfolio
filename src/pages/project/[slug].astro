@@ -25,28 +25,32 @@ const next =
   currentIndex + 1 < projects.length ? projects[currentIndex + 1] : null;
 const prev = currentIndex - 1 >= 0 ? projects[currentIndex - 1] : null;
 
-const { Content } = await project.render();
+// const { Content } = await project.render();
 ---
 
 <Layout title={project.data.title}>
   <main class="flex flex-col md:px-20">
-    <h1 class="text-5xl mb-8 md:mb-12">{project.data.title}</h1>
+    <h1 class="text-5xl mb-8 md:mb-12 leading-tight">{project.data.title}</h1>
     <h2 class="text-lg max-w-4xl mb-12 md:mb-20">
       {project.data.description}
     </h2>
 
-    <div class="grid grid-cols-2 masonry gap-4 md:gap-8">
-      <div class="flex flex-col gap-4 md:gap-8">
+    <div class="grid md:grid-cols-2 masonry gap-4 md:gap-8">
+      <div class="flex md:hidden flex-col gap-4 md:gap-8">
+        {project.data.images.map((x) => <img src={x} />)}
+      </div>
+
+      <div class="hidden md:flex flex-col gap-4 md:gap-8">
         {
           project.data.images.map((x, i) => {
-            if (i % 2 == 0) return <img src={x} />;
+            if (i % 2 == 0) return <img src={x.url} alt={x.alt} />;
           })
         }
       </div>
-      <div class="flex flex-col gap-4 md:gap-8">
+      <div class="hidden md:flex flex-col gap-4 md:gap-8">
         {
           project.data.images.map((x, i) => {
-            if (i % 2 != 0) return <img src={x} />;
+            if (i % 2 != 0) return <img src={x.url} alt={x.alt} />;
           })
         }
       </div>

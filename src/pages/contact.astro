@@ -1,11 +1,13 @@
 ---
 import { instagramUrl, linkedinUrl } from "../consts";
 import Layout from "../layouts/Layout.astro";
+import { Image } from "@astrojs/image/components";
+import headerImage from "../images/tufted-work/main image.jpg";
 ---
 
 <Layout title="Alice Collins">
-  <img
-    src="/images/tufted-work/main image.jpg"
+  <Image
+    src={headerImage}
     class="w-full h-64 object-cover object-center opacity-80"
   />
 

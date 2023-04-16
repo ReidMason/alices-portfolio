@@ -1,9 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { getProjects } from "../utils";
-// import { Image } from "@astrojs/image/components";
+import { getProjects, getAllImages } from "../utils";
+import { Image } from "@astrojs/image/components";
 
-let projects = await getProjects();
+const projects = await getProjects();
+const images = await getAllImages();
 ---
 
 <Layout title="Alice Collins">
@@ -14,11 +15,13 @@ let projects = await getProjects();
           <li>
             <a href={`/project/${project.slug}`} class="group">
               <div class="relative pb-[75%] w-full">
-                <img
-                  src={project.data.mainImage}
-                  class="object-cover absolute group-hover:opacity-90 w-full h-full transition-opacity duration-200"
-                />
-                {/* <Image src={project.data.mainImage} width /> */}
+                <div class="image-wrapper group-hover:opacity-90 transition-opacity duration-200">
+                  <Image
+                    src={images["." + project.data.mainImage]}
+                    format="webp"
+                    alt="testing"
+                  />
+                </div>
               </div>
               <p class="mt-3 text-xl">{project.data.title}</p>
             </a>
@@ -28,3 +31,9 @@ let projects = await getProjects();
     </ul>
   </main>
 </Layout>
+
+<style>
+  .image-wrapper img {
+    @apply object-cover absolute w-full h-full;
+  }
+</style>

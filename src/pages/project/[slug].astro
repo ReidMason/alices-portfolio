@@ -1,7 +1,8 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import { getProjects } from "../../utils";
+import { getProjects, getAllImages } from "../../utils";
+import { Image } from "@astrojs/image/components";
 
 const projects = await getProjects();
 export async function getStaticPaths() {
@@ -26,9 +27,15 @@ const next =
   currentIndex + 1 < projects.length ? projects[currentIndex + 1] : null;
 const prev = currentIndex - 1 >= 0 ? projects[currentIndex - 1] : null;
 
+const allImages = await getAllImages();
 // const { Content } = await project.render();
-const images = project.data.images.filter((x) => !x.disabled);
-images.sort((a, b) => a.index - b.index);
+const imageSrcs = project.data.images.filter((x) => !x.disabled);
+imageSrcs.sort((a, b) => a.index - b.index);
+
+const images: any = [];
+imageSrcs.forEach((x) => {
+  images.push(allImages["." + x.url]);
+});
 ---
 
 <Layout title={project.data.title}>
@@ -46,20 +53,20 @@ images.sort((a, b) => a.index - b.index);
 
     <div class="grid md:grid-cols-2 masonry gap-4 md:gap-8">
       <div class="flex md:hidden flex-col gap-4 md:gap-8">
-        {images.map((x) => <img src={x} />)}
+        {images.map((x) => <Image src={x} alt="" />)}
       </div>
 
       <div class="hidden md:flex flex-col gap-4 md:gap-8">
         {
           images.map((x, i) => {
-            if (i % 2 == 0) return <img src={x.url} alt={x.alt} />;
+            if (i % 2 == 0) return <Image src={x} alt="" />;
           })
         }
       </div>
       <div class="hidden md:flex flex-col gap-4 md:gap-8">
         {
           images.map((x, i) => {
-            if (i % 2 != 0) return <img src={x.url} alt={x.alt} />;
+            if (i % 2 != 0) return <Image src={x} alt="" />;
           })
         }
       </div>

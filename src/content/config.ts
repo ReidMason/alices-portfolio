@@ -7,7 +7,7 @@ export const collections = {
       index: z.number(),
       title: z.string(),
       description: z.string().optional(),
-      mainImage: z.string(),
+      mainImage: z.any(),
       images: z.array(z.object({
         index: z.number(),
         url: z.string(),

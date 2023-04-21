@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Antic-Didone";
+  src: url("/fonts/AnticDidone-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

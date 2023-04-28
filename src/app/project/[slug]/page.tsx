@@ -123,3 +123,11 @@ const Page = ({ params }: { params: { slug: string } }) => {
 }
 
 export default Page;
+
+export function generateStaticParams() {
+  const projects = getProjects();
+
+  return projects.map((project) => ({
+    slug: getProjectSlug(project.name),
+  }));
+}

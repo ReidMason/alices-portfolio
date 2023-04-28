@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image';
-import getProjects from '~/content/projects';
+import getProjects from '~/projects';
 import { getProjectSlug } from '~/utils/projectUtils';
 import { notFound, redirect } from 'next/navigation';
 import { MainHeading } from '~/components/typography/H1';

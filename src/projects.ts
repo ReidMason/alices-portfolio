@@ -1,5 +1,5 @@
 import fs from "fs";
-import { type StaticImageData } from "next/image";
+// import { type StaticImageData } from "next/image";
 import { z } from "zod";
 
 const metadataSchema = z.object({
@@ -29,13 +29,13 @@ export interface Project {
 }
 
 interface Image {
-  src: StaticImageData,
+  src: string,
   alt: string,
   index: number
 }
 
-const baseProjectDir = "./src/content/projects";
-const relativeProjectDir = "./projects";
+const baseProjectDir = "./public/content/projects";
+// const relativeProjectDir = "../public/content/projects";
 
 function getProjectDir(projectName: string): string {
   return `${baseProjectDir}/${projectName}`;
@@ -65,7 +65,7 @@ function parseImageMetadata(filename: string, projectName: string): Image | unde
   if (imageParts[0] == undefined)
     return;
   /* eslint @typescript-eslint/no-unsafe-member-access: "off", @typescript-eslint/no-var-requires: "off" */
-  const src = require(`${relativeProjectDir}/${projectName}/${filename}`).default as StaticImageData;
+  const src = `/content/projects/${projectName}/${filename}`;
   return {
     src,
     alt: removeFileExtension(imageParts.slice(1).join(" ")),

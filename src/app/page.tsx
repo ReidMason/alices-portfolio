@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getProjectSlug } from "~/utils/projectUtils";
-import getProjects from "~/content/projects";
+import getProjects from "~/projects";
 
 const projects = getProjects();
 
@@ -28,3 +28,5 @@ const Home = () => {
 };
 
 export default Home;
+
+

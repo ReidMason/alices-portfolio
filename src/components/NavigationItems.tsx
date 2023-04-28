@@ -1,5 +1,7 @@
+"use client"
+
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import React from 'react'
 
 interface NavigationItemsProps {
@@ -7,28 +9,27 @@ interface NavigationItemsProps {
 }
 
 export const NavigationItems = ({ className }: NavigationItemsProps) => {
-  const router = useRouter();
-  const pathname = router.pathname;
+  const pathname = usePathname();
   const classNames = className ?? "";
 
   const activeClasses = "border-b-2 border-black";
 
   return (
     <ul className={`flex flex-col md:flex-row items-center gap-4 ${classNames}`}>
-      <div>
+      <li>
         <Link
-          className={pathname === "/" || pathname.startsWith("/project/")
+          className={pathname === "/" || pathname?.startsWith("/project/")
             ? activeClasses
             : undefined}
           href="/">Work</Link
         >
-      </div>
-      <div>
+      </li>
+      <li>
         <Link
-          className={pathname.startsWith("/contact") ? activeClasses : undefined}
+          className={pathname?.startsWith("/contact") ? activeClasses : undefined}
           href="/contact">Contact</Link
         >
-      </div>
+      </li>
     </ul>
   )
 }

@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react'
 import { NavigationItems } from './NavigationItems'
 import { SocialMediaLinks } from './SocialMediaLinks'

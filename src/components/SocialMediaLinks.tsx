@@ -4,7 +4,7 @@ import { instagramUrl, linkedinUrl } from '~/consts'
 export const SocialMediaLinks = () => {
   return (
     <>
-      <a href={instagramUrl} target="_blank">
+      <a href={instagramUrl} aria-label="instagram-social-link" target="_blank">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="w-6 h-6 md:w-5 md:h-5"
@@ -15,7 +15,7 @@ export const SocialMediaLinks = () => {
         ></path></svg
         >
       </a>
-      <a href={linkedinUrl} target="_blank">
+      <a href={linkedinUrl} aria-label="linkedin-social-link" target="_blank">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="w-6 h-6 md:w-5 md:h-5"

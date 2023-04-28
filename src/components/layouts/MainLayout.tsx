@@ -13,10 +13,10 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
         <title>Alice&apos;s portfolio</title>
         <meta name="description" content="Alice's portfolio" />
       </Head>
-      <div className="m-4 md:m-20 mt-8 md:mt-16 md:overflow-auto">
+      <body className="m-4 md:m-20 mt-8 md:mt-16 md:overflow-auto">
         <Navbar />
         {children}
-      </div>
+      </body>
     </>
   )
 }

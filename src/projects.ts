@@ -1,6 +1,6 @@
 import fs from "fs";
+import { StaticImageData } from "next/image";
 import path from "path";
-// import { type StaticImageData } from "next/image";
 import { z } from "zod";
 
 const metadataSchema = z.object({
@@ -30,14 +30,14 @@ export interface Project {
 }
 
 interface Image {
-  src: string,
+  src: StaticImageData,
   alt: string,
   index: number
 }
 
 
-const baseProjectDir = path.join(process.cwd(), 'public/content/projects');
-// const relativeProjectDir = "../public/content/projects";
+const baseProjectDir = path.join(process.cwd(), 'src/content/projects');
+const relativeProjectDir = "./content/projects";
 
 function getProjectDir(projectName: string): string {
   return `${baseProjectDir}/${projectName}`;
@@ -67,15 +67,15 @@ function parseImageMetadata(filename: string, projectName: string): Image | unde
   if (imageParts[0] == undefined)
     return;
   /* eslint @typescript-eslint/no-unsafe-member-access: "off", @typescript-eslint/no-var-requires: "off" */
-  const src = `/content/projects/${projectName}/${filename}`;
+  // const src = `/content/projects/${projectName}/${filename}`;
   return {
-    src,
+    src: require(`${relativeProjectDir}/${projectName}/${filename}`).default as StaticImageData,
     alt: removeFileExtension(imageParts.slice(1).join(" ")),
     index: parseImageIndex(imageParts[0])
   }
 }
 
-function getImagesforProject(projectName: string): ProjectImageData | null {
+function getImagesForProject(projectName: string): ProjectImageData | null {
   const images: Image[] = [];
   let mainImage: Image | null = null;
 
@@ -126,6 +126,7 @@ function formatProjectfilename(projectFilename: string): string {
 
 function getAllProjects(): BaseProject[] {
   const files = fs.readdirSync(baseProjectDir).filter(x => !x.startsWith("."));
+  console.log(files);
   return files.map(filename => {
     const metadata: ProjectMetadata = parseProjectMetadata(filename);
     return {
@@ -140,7 +141,7 @@ function getAllProjects(): BaseProject[] {
 export default function getProjects(): Project[] {
   const projectData: Project[] = [];
   getAllProjects().forEach(project => {
-    const imageData = getImagesforProject(project.filename);
+    const imageData = getImagesForProject(project.filename);
     if (imageData == null) {
       console.error(`Invalid image data for ${project.name}`);
       return;

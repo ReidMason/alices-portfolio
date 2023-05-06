@@ -48,7 +48,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
       <div className="grid md:grid-cols-2 gap-4 md:gap-8">
         <div className="flex md:hidden flex-col gap-4 md:gap-8">
           {project.imageData.images.map((x) => (
-            <Image src={x.src} key={x.alt} alt={x.alt} width={750} height={750} />
+            <Image src={x.src} key={x.alt} alt={x.alt} />
           ))}
         </div>
 
@@ -56,7 +56,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
           {
             project.imageData.images.map((x, i) => {
               if (i % 2 == 0) return (
-                <Image src={x.src} key={x.alt} alt={x.alt} width={750} height={750} />
+                <Image src={x.src} key={x.alt} alt={x.alt} />
               );
             })
           }
@@ -65,7 +65,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
           {
             project.imageData.images.map((x, i) => {
               if (i % 2 != 0) return (
-                <Image src={x.src} key={x.alt} alt={x.alt} width={750} height={750} />
+                <Image src={x.src} key={x.alt} alt={x.alt} />
               );
             })
           }

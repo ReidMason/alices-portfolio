@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "project/[slug]": {
+      "excludeFiles": "content/**/*"
+    }
+  }
+}

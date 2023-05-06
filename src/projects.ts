@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 // import { type StaticImageData } from "next/image";
 import { z } from "zod";
 
@@ -34,7 +35,8 @@ interface Image {
   index: number
 }
 
-const baseProjectDir = "./public/content/projects";
+
+const baseProjectDir = path.join(process.cwd(), 'public/content/projects');
 // const relativeProjectDir = "../public/content/projects";
 
 function getProjectDir(projectName: string): string {

@@ -1,10 +1,11 @@
 import { MainLayout } from "~/components/layouts/MainLayout";
 import "../styles/globals.css";
+import { Analytics } from '@vercel/analytics/react';
 
-// export const metadata = {
-//   title: "Alice Collins",
-//   description: "Alice Collins portfolio",
-// }
+export const metadata = {
+  title: "Alice Collins",
+  description: "Alice Collins portfolio",
+}
 
 export default function RootLayout({
   children,
@@ -13,6 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <Analytics />
       <MainLayout>
         {children}
       </MainLayout>

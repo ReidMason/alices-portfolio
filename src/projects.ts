@@ -1,5 +1,5 @@
 import fs from "fs";
-import { StaticImageData } from "next/image";
+import type { StaticImageData } from "next/image";
 import path from "path";
 import { z } from "zod";
 

@@ -1,6 +1,6 @@
 {
   "functions": {
-    "src/app/project/[slug].*": {
+    "project/[slug]": {
       "excludeFiles": "content/**/*"
     }
   }

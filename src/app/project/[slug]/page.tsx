@@ -48,7 +48,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
       <div className="grid md:grid-cols-2 gap-4 md:gap-8">
         <div className="flex md:hidden flex-col gap-4 md:gap-8">
           {project.imageData.images.map((x) => (
-            <Image src={x.src} key={x.alt} alt={x.alt} />
+            <Image src={x.src} key={x.alt} alt={x.alt} width={750} height={750} />
           ))}
         </div>
 
@@ -56,7 +56,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
           {
             project.imageData.images.map((x, i) => {
               if (i % 2 == 0) return (
-                <Image src={x.src} key={x.alt} alt={x.alt} />
+                <Image src={x.src} key={x.alt} alt={x.alt} width={750} height={750} />
               );
             })
           }
@@ -65,7 +65,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
           {
             project.imageData.images.map((x, i) => {
               if (i % 2 != 0) return (
-                <Image src={x.src} key={x.alt} alt={x.alt} />
+                <Image src={x.src} key={x.alt} alt={x.alt} width={750} height={750} />
               );
             })
           }
@@ -79,13 +79,13 @@ const Page = ({ params }: { params: { slug: string } }) => {
               className="text-2xl flex items-center gap-1"
               href={`/project/${getProjectSlug(prev.name)}`}
             > <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               stroke="currentColor"
               className="w-6 h-6"
             >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M15.75 19.5L8.25 12l7.5-7.5"
                 />
               </svg>
@@ -104,13 +104,13 @@ const Page = ({ params }: { params: { slug: string } }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
                 className="w-5 h-5"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M8.25 4.5l7.5 7.5-7.5 7.5"
                 />
               </svg>
@@ -123,11 +123,3 @@ const Page = ({ params }: { params: { slug: string } }) => {
 }
 
 export default Page;
-
-export function generateStaticParams() {
-  const projects = getProjects();
-
-  return projects.map((project) => ({
-    slug: getProjectSlug(project.name),
-  }));
-}

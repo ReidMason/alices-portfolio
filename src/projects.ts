@@ -1,4 +1,5 @@
 import fs from "fs";
+import type { StaticImageData } from "next/image";
 import path from "path";
 import { z } from "zod";
 
@@ -29,14 +30,14 @@ export interface Project {
 }
 
 interface Image {
-  src: string,
+  src: StaticImageData,
   alt: string,
   index: number
 }
 
 
-const baseProjectDir = path.join(process.cwd(), 'public/content/projects');
-// const relativeProjectDir = "./content/projects";
+const baseProjectDir = path.join(process.cwd(), 'src/content/projects');
+const relativeProjectDir = "./content/projects";
 
 function getProjectDir(projectName: string): string {
   return `${baseProjectDir}/${projectName}`;
@@ -66,9 +67,9 @@ function parseImageMetadata(filename: string, projectName: string): Image | unde
   if (imageParts[0] == undefined)
     return;
   /* eslint @typescript-eslint/no-unsafe-member-access: "off", @typescript-eslint/no-var-requires: "off" */
-  const src = `/content/projects/${projectName}/${filename}`;
+  // const src = `/content/projects/${projectName}/${filename}`;
   return {
-    src,
+    src: require(`${relativeProjectDir}/${projectName}/${filename}`).default as StaticImageData,
     alt: removeFileExtension(imageParts.slice(1).join(" ")),
     index: parseImageIndex(imageParts[0])
   }

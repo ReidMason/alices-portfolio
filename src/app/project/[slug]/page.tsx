@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image';
 import getProjects from '~/projects';
 import { getProjectSlug } from '~/utils/projectUtils';
 import { notFound, redirect } from 'next/navigation';
@@ -16,8 +17,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
       if (!x.metadata.altNames) return false;
 
       for (let i = 0; i < x.metadata.altNames.length; i++) {
-        const altName = x.metadata.altNames[i];
-        if (altName && getProjectSlug(altName) === slug) redirect(`/project/${getProjectSlug(x.name)}`);
+        const altName = x.metadata.altNames[i]; if (altName && getProjectSlug(altName) === slug) redirect(`/project/${getProjectSlug(x.name)}`);
       }
     })
   }
@@ -47,8 +47,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
       <div className="grid md:grid-cols-2 gap-4 md:gap-8">
         <div className="flex md:hidden flex-col gap-4 md:gap-8">
           {project.imageData.images.map((x) => (
-            // <Image src={x.src} key={x.alt} alt={x.alt} />
-            <img src={x.src} alt={x.alt} key={x.alt} />
+            <Image src={x.src} key={x.alt} alt={x.alt} />
           ))}
         </div>
 
@@ -56,7 +55,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
           {
             project.imageData.images.map((x, i) => {
               if (i % 2 == 0) return (
-                <img src={x.src} alt={x.alt} key={x.alt} />
+                <Image src={x.src} key={x.alt} alt={x.alt} />
               );
             })
           }
@@ -65,7 +64,8 @@ const Page = ({ params }: { params: { slug: string } }) => {
           {
             project.imageData.images.map((x, i) => {
               if (i % 2 != 0) return (
-                <img src={x.src} alt={x.alt} key={x.alt} />
+
+                <Image src={x.src} key={x.alt} alt={x.alt} />
               );
             })
           }

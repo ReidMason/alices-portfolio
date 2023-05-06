@@ -126,6 +126,7 @@ function formatProjectfilename(projectFilename: string): string {
 
 function getAllProjects(): BaseProject[] {
   const files = fs.readdirSync(baseProjectDir).filter(x => !x.startsWith("."));
+  files.splice(1);
   console.log(files);
   return files.map(filename => {
     const metadata: ProjectMetadata = parseProjectMetadata(filename);

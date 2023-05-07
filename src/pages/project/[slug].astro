@@ -22,10 +22,10 @@ interface Props {
 }
 
 const { project } = Astro.props;
+
 const currentIndex = projects.findIndex((x) => x.slug == project.slug);
-const next =
-  currentIndex + 1 < projects.length ? projects[currentIndex + 1] : null;
-const prev = currentIndex - 1 >= 0 ? projects[currentIndex - 1] : null;
+const next = projects[currentIndex + 1];
+const prev = projects[currentIndex - 1];
 ---
 
 <Layout title={project.name}>

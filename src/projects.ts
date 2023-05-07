@@ -88,7 +88,7 @@ function parseImageMetadata(filename: string, projectName: string, allImages: Im
   const imageFilepath = `./projects/${projectName}/${filename}`;
   const imageData = allImages[imageFilepath];
 
-  const percentageDecrease = Math.max(imageData.width, maxImageWidth) / maxImageWidth;
+  const percentageDecrease = imageData.width / maxImageWidth
 
   return {
     src: imageData,

@@ -1,12 +1,12 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
-import { getProjects, getAllImages } from "../../utils";
 import { Image } from "@astrojs/image/components";
+import type { Project } from "../../projects";
+import getProjects from "../../projects";
 
-const projects = await getProjects();
+const projects = getProjects();
 export async function getStaticPaths() {
-  const projects = await getProjects();
+  const projects = getProjects();
   return projects.map((project) => {
     return {
       params: { slug: project.slug },
@@ -18,55 +18,45 @@ export async function getStaticPaths() {
 }
 
 interface Props {
-  project: CollectionEntry<"project">;
+  project: Project;
 }
 
 const { project } = Astro.props;
-const currentIndex = projects.findIndex((x) => x.id == project.id);
+const currentIndex = projects.findIndex((x) => x.slug == project.slug);
 const next =
   currentIndex + 1 < projects.length ? projects[currentIndex + 1] : null;
 const prev = currentIndex - 1 >= 0 ? projects[currentIndex - 1] : null;
-
-const allImages = await getAllImages();
-// const { Content } = await project.render();
-const imageSrcs = project.data.images.filter((x) => !x.disabled);
-imageSrcs.sort((a, b) => a.index - b.index);
-
-const images: any = [];
-imageSrcs.forEach((x) => {
-  images.push(allImages["." + x.url]);
-});
 ---
 
-<Layout title={project.data.title}>
+<Layout title={project.name}>
   <main class="flex flex-col md:px-20">
     <h1 class="text-5xl mb-8 md:mb-12 leading-tight">
-      {project.data.title}
+      {project.name}
     </h1>
     {
-      project.data.description && (
+      project.metadata.description && (
         <h2 class="text-lg max-w-4xl mb-12 md:mb-20">
-          {project.data.description}
+          {project.metadata.description}
         </h2>
       )
     }
 
-    <div class="grid md:grid-cols-2 masonry gap-4 md:gap-8">
+    <div class="grid md:grid-cols-2 gap-4 md:gap-8">
       <div class="flex md:hidden flex-col gap-4 md:gap-8">
-        {images.map((x) => <Image src={x} alt="" />)}
+        {project.imageData.images.map((x) => <Image src={x.src} alt={x.alt} />)}
       </div>
 
       <div class="hidden md:flex flex-col gap-4 md:gap-8">
         {
-          images.map((x, i) => {
-            if (i % 2 == 0) return <Image src={x} alt="" />;
+          project.imageData.images.map((x, i) => {
+            if (i % 2 == 0) return <Image src={x.src} alt={x.alt} />;
           })
         }
       </div>
       <div class="hidden md:flex flex-col gap-4 md:gap-8">
         {
-          images.map((x, i) => {
-            if (i % 2 != 0) return <Image src={x} alt="" />;
+          project.imageData.images.map((x, i) => {
+            if (i % 2 != 0) return <Image src={x.src} alt={x.alt} />;
           })
         }
       </div>
@@ -93,7 +83,7 @@ imageSrcs.forEach((x) => {
                 d="M15.75 19.5L8.25 12l7.5-7.5"
               />
             </svg>
-            {prev.data.title}
+            {prev.name}
           </a>
         )
       }
@@ -103,7 +93,7 @@ imageSrcs.forEach((x) => {
             class="ml-auto text-2xl flex items-center gap-1"
             href={`/project/${next.slug}`}
           >
-            {next.data.title}
+            {next.name}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -124,9 +114,3 @@ imageSrcs.forEach((x) => {
     </div>
   </main>
 </Layout>
-
-<style>
-  .masonry {
-    grid-template-rows: masonry;
-  }
-</style>

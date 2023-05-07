@@ -4,9 +4,9 @@ import { Image } from "@astrojs/image/components";
 import type { Project } from "../../projects";
 import getProjects from "../../projects";
 
-const projects = getProjects();
+const projects = await getProjects();
 export async function getStaticPaths() {
-  const projects = getProjects();
+  const projects = await getProjects();
   return projects.map((project) => {
     return {
       params: { slug: project.slug },

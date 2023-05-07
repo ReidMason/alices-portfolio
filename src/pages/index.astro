@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { Image } from "@astrojs/image/components";
 import getProjects from "../projects";
 
-const projects = getProjects();
+const projects = await getProjects();
 ---
 
 <Layout title="Alice Collins">

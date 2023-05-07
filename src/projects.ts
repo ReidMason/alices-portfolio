@@ -8,6 +8,7 @@ const metadataSchema = z.object({
 });
 
 type ProjectMetadata = z.infer<typeof metadataSchema>;
+type ImageGlob = { [key: string]: any };
 
 interface ProjectImageData {
   mainImage: Image,
@@ -37,8 +38,8 @@ interface Image {
   height: number
 }
 
-const getAllImages = async (): Promise<any> => {
-  const imagesRaw = import.meta.glob("./content/projects/*/*");
+const getAllImages = async (): Promise<ImageGlob> => {
+  const imagesRaw = import.meta.glob("./projects/*/*");
   const images: any = {};
   for (const key of Object.keys(imagesRaw)) {
     const res = (await imagesRaw[key]()) as Record<string, any>;
@@ -48,9 +49,7 @@ const getAllImages = async (): Promise<any> => {
   return images;
 }
 
-const allImages = await getAllImages();
-
-const baseProjectDir = path.join(process.cwd(), 'src/content/projects');
+const baseProjectDir = path.join(process.cwd(), 'src/projects/');
 const maxImageWidth = 750;
 
 function getProjectSlug(projectName: string): string {
@@ -80,13 +79,13 @@ function removeFileExtension(filename: string): string {
   return filename.replace(/\.[^/.]+$/, "");
 }
 
-function parseImageMetadata(filename: string, projectName: string): Image | undefined {
+function parseImageMetadata(filename: string, projectName: string, allImages: ImageGlob): Image | undefined {
   const imageParts = filename.split(" ");
   if (imageParts[0] == undefined)
     return;
 
   /* eslint @typescript-eslint/no-unsafe-member-access: "off", @typescript-eslint/no-var-requires: "off" */
-  const imageFilepath = `./content/projects/${projectName}/${filename}`;
+  const imageFilepath = `./projects/${projectName}/${filename}`;
   const imageData = allImages[imageFilepath];
 
   const percentageDecrease = Math.max(imageData.width, maxImageWidth) / maxImageWidth;
@@ -100,13 +99,13 @@ function parseImageMetadata(filename: string, projectName: string): Image | unde
   }
 }
 
-function getImagesForProject(projectName: string): ProjectImageData | null {
+function getImagesForProject(projectName: string, allImages: ImageGlob): ProjectImageData | null {
   const images: Image[] = [];
   let mainImage: Image | null = null;
 
   const imageFilenames = getProjectImageFiles(projectName)
   imageFilenames.forEach(imageFilename => {
-    const image = parseImageMetadata(imageFilename, projectName);
+    const image = parseImageMetadata(imageFilename, projectName, allImages);
     if (image == undefined) return;
 
     images.push(image);
@@ -162,10 +161,12 @@ function getAllProjects(): BaseProject[] {
   });
 }
 
-export default function getProjects(): Project[] {
+export default async function getProjects(): Promise<Project[]> {
   const projectData: Project[] = [];
+  const allImages = await getAllImages();
   getAllProjects().forEach(project => {
-    const imageData = getImagesForProject(project.filename);
+
+    const imageData = getImagesForProject(project.filename, allImages);
     if (imageData == null) {
       console.error(`Invalid image data for ${project.name}`);
       return;

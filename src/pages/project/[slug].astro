@@ -49,14 +49,30 @@ const prev = currentIndex - 1 >= 0 ? projects[currentIndex - 1] : null;
       <div class="hidden md:flex flex-col gap-4 md:gap-8">
         {
           project.imageData.images.map((x, i) => {
-            if (i % 2 == 0) return <Image src={x.src} alt={x.alt} />;
+            if (i % 2 == 0)
+              return (
+                <Image
+                  src={x.src}
+                  alt={x.alt}
+                  width={x.src.width / 2}
+                  height={x.src.height / 2}
+                />
+              );
           })
         }
       </div>
       <div class="hidden md:flex flex-col gap-4 md:gap-8">
         {
           project.imageData.images.map((x, i) => {
-            if (i % 2 != 0) return <Image src={x.src} alt={x.alt} />;
+            if (i % 2 != 0)
+              return (
+                <Image
+                  src={x.src}
+                  alt={x.alt}
+                  width={x.src.width / 2}
+                  height={x.src.height / 2}
+                />
+              );
           })
         }
       </div>

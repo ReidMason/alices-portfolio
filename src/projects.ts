@@ -32,7 +32,9 @@ export interface Project {
 interface Image {
   src: any,
   alt: string,
-  index: number
+  index: number,
+  width: number,
+  height: number
 }
 
 const getAllImages = async (): Promise<any> => {
@@ -49,6 +51,7 @@ const getAllImages = async (): Promise<any> => {
 const allImages = await getAllImages();
 
 const baseProjectDir = path.join(process.cwd(), 'src/content/projects');
+const maxImageWidth = 750;
 
 function getProjectSlug(projectName: string): string {
   return decodeURI(projectName).toLowerCase().replaceAll(" ", "-");
@@ -86,10 +89,14 @@ function parseImageMetadata(filename: string, projectName: string): Image | unde
   const imageFilepath = `./content/projects/${projectName}/${filename}`;
   const imageData = allImages[imageFilepath];
 
+  const percentageDecrease = Math.max(imageData.width, maxImageWidth) / maxImageWidth;
+
   return {
     src: imageData,
     alt: removeFileExtension(imageParts.slice(1).join(" ")),
-    index: parseImageIndex(imageParts[0])
+    index: parseImageIndex(imageParts[0]),
+    width: imageData.width / percentageDecrease,
+    height: imageData.height / percentageDecrease
   }
 }
 

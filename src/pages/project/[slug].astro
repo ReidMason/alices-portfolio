@@ -26,7 +26,18 @@ const { project } = Astro.props;
     {project.data.title}
   </h1>
 
-  {project.data.images.map((image) => 
-    <Image transition:name={image.alt} src={image.image} alt={image.alt} width="3024" height="4032" />
-  )}
+  <div class="grid md:grid-cols-2 gap-4 md:gap-8">
+    <div class="flex gap-8 flex-col">
+      {project.data.images.map((image, i) => {
+        if (i % 2 != 0) return;
+        return <Image transition:name={image.alt} src={image.image} alt={image.alt} width="3024" height="4032" />
+      })}
+    </div>
+    <div class="flex gap-8 flex-col">
+      {project.data.images.map((image, i) => {
+        if (i % 2 === 0) return;
+        return <Image transition:name={image.alt} src={image.image} alt={image.alt} width="3024" height="4032" />
+      })}
+    </div>
+  </div>
 </Layout>

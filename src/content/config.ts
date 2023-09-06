@@ -11,7 +11,7 @@ const projectCollection = defineCollection({
       images: z.array(
         z.object({
           index: z.number(),
-          url: z.string(),
+          image: image(),
           alt: z.string(),
           disabled: z.boolean().optional(),
         }),

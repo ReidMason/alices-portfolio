@@ -26,5 +26,7 @@ const { project } = Astro.props;
     {project.data.title}
   </h1>
 
-  <Image transition:name={project.data.mainImageAlt} src={image} alt={project.data.mainImageAlt} width="3024" height="4032" />
+  {project.data.images.map((image) => 
+    <Image transition:name={image.alt} src={image.image} alt={image.alt} width="3024" height="4032" />
+  )}
 </Layout>

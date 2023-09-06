@@ -6,8 +6,13 @@ mainImageAlt: "The Importance of Touch main image"
 images: [
 {
 index: 0,
-url: "./images/the-importance-of-touch/1 first image.webp",
+image: "./images/the-importance-of-touch/1 first image.webp",
 alt: "Main image",
+},
+{
+index: 1,
+image: "./images/the-importance-of-touch/2 second image.webp",
+alt: "Second image",
 }
 ]
 ---

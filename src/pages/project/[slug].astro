@@ -1,0 +1,30 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import {getProjects} from '@/utils.ts';
+import { ViewTransitions } from 'astro:transitions';
+import { Image } from 'astro:assets';
+import image from "../../content/project/images/the-importance-of-touch/1 first image.webp"
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project) => {
+    return {
+      params: { slug: project.slug },
+      props: {
+        project,
+      },
+    };
+  });
+}
+
+const { project } = Astro.props;
+---
+
+<Layout>
+  <ViewTransitions />
+  <h1 transition:name={project.data.title} class="text-5xl mb-8 md:mb-12 leading-tight">
+    {project.data.title}
+  </h1>
+
+  <Image transition:name={project.data.mainImageAlt} src={image} alt={project.data.mainImageAlt} width="3024" height="4032" />
+</Layout>

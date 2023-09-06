@@ -6,14 +6,13 @@ const projectCollection = defineCollection({
       index: z.number(),
       title: z.string(),
       description: z.string().optional(),
-      mainImage: image(),
-      mainImageAlt: z.string(),
       images: z.array(
         z.object({
           index: z.number(),
           image: image(),
           alt: z.string(),
           disabled: z.boolean().optional(),
+          isMainImage: z.boolean().optional(),
         }),
       ),
     }),

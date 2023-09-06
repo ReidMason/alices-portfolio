@@ -6,7 +6,9 @@ import { ViewTransitions } from 'astro:transitions';
 import {getProjects} from '@/utils.ts';
 
 const projects = await getProjects();
-console.log(projects[0])
+const getMainImage = (project) => {
+  return project.data.images.find(x => x.isMainImage)
+}
 ---
 
 <Layout title="Welcome to Astro.">
@@ -18,7 +20,7 @@ console.log(projects[0])
           <a href={`/${project.collection}/${project.slug}`} class="group">
             <div class="relative pb-[75%] w-full">
               <div class="image-wrapper group-hover:opacity-90 transition-opacity duration-200">
-                <Image transition:name={project.data.mainImageAlt} src={project.data.mainImage} alt={project.data.mainImageAlt} width="3024" height="4032" />
+                <Image transition:name={getMainImage(project).alt} src={getMainImage(project).image} alt={getMainImage(project).alt} width="3024" height="4032" />
               </div>
             </div>
             <p transition:name={project.data.title} class="mt-3 text-xl">{project.data.title}</p>

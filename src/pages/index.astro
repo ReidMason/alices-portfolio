@@ -1,8 +1,8 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Layout from '@/layouts/Layout.astro';
+import Card from '@/components/Card.astro';
 import { Image } from 'astro:assets';
-import image from "../projects/1 The Importance of Touch/1 first image.webp"
+import image from "@/projects/1 The Importance of Touch/1 first image.webp"
 import { ViewTransitions } from 'astro:transitions';
 ---
 
@@ -10,7 +10,7 @@ import { ViewTransitions } from 'astro:transitions';
   <ViewTransitions />
 	<main>
     <div>
-      <a href="/the-importance-of-touch">
+      <a href="/project/the-importance-of-touch">
       <Image transition:name="main-image" src={image} alt="The Importance of Touch" width="500" height="250" />
         <p class="mt-3 text-xl" transition:name="tiot">The importance of touch</p>
       </a>

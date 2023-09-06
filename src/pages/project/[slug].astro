@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 ---
 
-<Layout>
+<Layout title={project.data.title}>
   <ViewTransitions />
   <h1 transition:name={project.data.title} class="text-5xl mb-8 md:mb-12 leading-tight">
     {project.data.title}

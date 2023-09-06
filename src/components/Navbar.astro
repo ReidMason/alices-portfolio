@@ -1,0 +1,70 @@
+---
+import NavigationItems from "./NavigationItems.astro";
+import SocialMediaLinks from "./SocialMediaLinks.astro";
+---
+
+<nav class="text-xl flex items-baseline w-full gap-12 mb-14 md:mb-28">
+  <div class="flex justify-between w-full md:w-auto">
+    <a class="text-4xl" href="/">Alice Collins</a>
+    <!-- Burger menu toggle -->
+    <div class="ml-auto md:hidden">
+      <svg
+        id="burger-menu-toggle"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-8 h-8"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 9h16.5m-16.5 6.75h16.5"></path>
+      </svg>
+    </div>
+  </div>
+  <!-- Burger menu -->
+  <div
+    class="hidden md:hidden pt-24 top-0 left-0 absolute w-full h-screen pointer-events-none z-10"
+    id="burger-menu"
+  >
+    <div
+      class="bg-white flex flex-col gap-6 items-center h-full pointer-events-auto"
+    >
+      <NavigationItems />
+      <div class="flex gap-3 mt-auto mb-8">
+        <SocialMediaLinks />
+      </div>
+    </div>
+    <div class="top-0 left-0 bg-white h-screen"></div>
+  </div>
+  <!-- Navigation items -->
+  <div class="hidden md:flex gap-4">
+    <NavigationItems />
+  </div>
+  <!-- Social links  -->
+  <div class="gap-3 ml-auto hidden md:flex">
+    <SocialMediaLinks />
+  </div>
+</nav>
+
+<script>
+  const burgerMenuToggleElement = document.getElementById("burger-menu-toggle");
+  const burgerMenu = document.getElementById("burger-menu");
+  const body = document.getElementById("body");
+
+  if (burgerMenuToggleElement) {
+    burgerMenuToggleElement.addEventListener("click", () => {
+      if (!burgerMenu || !body) return;
+
+      burgerMenu.classList.toggle("hidden");
+
+      if (burgerMenu.classList.contains("hidden")) {
+        body.classList.remove("overflow-hidden");
+      } else {
+        body.classList.add("overflow-hidden");
+      }
+    });
+  }
+</script>

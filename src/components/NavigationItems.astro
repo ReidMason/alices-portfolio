@@ -1,0 +1,20 @@
+---
+const { pathname } = Astro.url;
+
+const activeClasses = "border-b-2 border-black";
+---
+
+<div>
+  <a
+    class={pathname === "/" || pathname.startsWith("/project/")
+      ? activeClasses
+      : undefined}
+    href="/">Work</a
+  >
+</div>
+<div>
+  <a
+    class={pathname.startsWith("/contact") ? activeClasses : undefined}
+    href="/contact">Contact</a
+  >
+</div>

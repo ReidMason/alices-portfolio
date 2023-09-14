@@ -3,7 +3,6 @@ import Layout from '@/layouts/Layout.astro';
 import {getProjects} from '@/utils.ts';
 import { ViewTransitions } from 'astro:transitions';
 import { Image } from 'astro:assets';
-import image from "../../content/project/images/the-importance-of-touch/1 first image.webp"
 
 export async function getStaticPaths() {
   const projects = await getProjects();
@@ -31,7 +30,7 @@ const { project } = Astro.props;
       <div class="flex gap-8 flex-col">
         {project.data.images.map((image, i) => {
           if (i % 2 != 0) return;
-          return <Image transition:name={image.alt} src={image.image} alt={image.alt} width="3024" height="4032" />
+          return <Image transition:name={project.data.title + " " + image.alt} src={image.image} alt={image.alt} width="3024" height="4032" />
         })}
       </div>
       <div class="flex gap-8 flex-col">

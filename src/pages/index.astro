@@ -7,7 +7,7 @@ import {getProjects} from '@/utils.ts';
 
 const projects = await getProjects();
 const getMainImage = (project) => {
-  return project.data.images.find(x => x.isMainImage)
+  return project.data.images.find(x => x.isMainImage) ?? project.data.images[0]
 }
 ---
 

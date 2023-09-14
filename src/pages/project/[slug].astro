@@ -1,6 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import {getProjects} from '@/utils.ts';
+import {getProjects, type ProjectCollectionEntry} from '@/utils.ts';
 import { ViewTransitions } from 'astro:transitions';
 import { Image } from 'astro:assets';
 
@@ -14,6 +14,10 @@ export async function getStaticPaths() {
       },
     };
   });
+}
+
+interface Props {
+  project: ProjectCollectionEntry;
 }
 
 const { project } = Astro.props;

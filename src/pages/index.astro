@@ -2,14 +2,9 @@
 import Layout from '@/layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import { ViewTransitions } from 'astro:transitions';
-import {getProjects, type ProjectCollectionEntry} from '@/utils.ts';
+import {getProjects, getMainImage} from '@/utils.ts';
 
 const projects = await getProjects();
-const getMainImage = (project: ProjectCollectionEntry) => {
-  return (
-    project.data.images.find((x) => x.isMainImage) ?? project.data.images[0]
-  );
-};
 ---
 
 <Layout title="Alice Collins">

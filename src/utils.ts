@@ -4,7 +4,7 @@ export const getProjects = async () => {
   const projects = await getCollection("project");
   projects.sort((a, b) => a.data.index - b.data.index);
   return projects;
-}
+};
 
 export const getAllImages = async (): Promise<any> => {
   const imagesRaw = import.meta.glob("./images/*/*");
@@ -15,4 +15,4 @@ export const getAllImages = async (): Promise<any> => {
   }
 
   return images;
-}
+};

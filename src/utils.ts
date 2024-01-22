@@ -4,14 +4,10 @@ import content from "./content.json";
 
 export type ProjectCollectionEntry = CollectionEntry<"project">;
 
-export type Project = typeof content[0];
+export type Project = (typeof content)[0];
 
 export const getProjects = () => {
-  return content;
-};
-
-export const getMainImage = (project: ProjectCollectionEntry) => {
-  return (
-    project.data.images.find((x) => x.isMainImage) ?? project.data.images[0]
-  );
+  return content.sort((a, b) => {
+    return a.index - b.index;
+  });
 };

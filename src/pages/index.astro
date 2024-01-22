@@ -2,9 +2,10 @@
 import Layout from "@/layouts/Layout.astro";
 import { Image } from "astro:assets";
 import { ViewTransitions } from "astro:transitions";
-import { getProjects, getMainImage } from "@/utils.ts";
+import { getImages, getProjects } from "@/utils.ts";
 
 const projects = getProjects();
+const images = getImages();
 ---
 
 <Layout title="Alice Collins">
@@ -21,7 +22,7 @@ const projects = getProjects();
                     transition:name={
                       project.title + " " + project.mainImage.path
                     }
-                    src={project.mainImage.path}
+                    src={images[project.mainImage.path]()}
                     alt="Temp"
                     width="800"
                     height="500"

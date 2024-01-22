@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { getProjects, type Project } from "@/utils.ts";
+import { getImages, getProjects, type Project } from "@/utils.ts";
 import { ViewTransitions } from "astro:transitions";
 import { Image } from "astro:assets";
 
@@ -21,6 +21,7 @@ interface Props {
 }
 
 const { project } = Astro.props;
+const images = getImages();
 ---
 
 <Layout title={project.title}>
@@ -41,7 +42,7 @@ const { project } = Astro.props;
             return (
               <Image
                 transition:name={project.title + " " + image.alt}
-                src={image.path}
+                src={images[image.path]()}
                 alt={image.alt}
                 width="800"
                 height="500"

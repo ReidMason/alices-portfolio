@@ -23,7 +23,7 @@ const images = getImages();
                       project.title + " " + project.mainImage.path
                     }
                     src={images[project.mainImage.path]()}
-                    alt="Temp"
+                    alt={project.mainImage.alt}
                     width="800"
                     height="500"
                   />

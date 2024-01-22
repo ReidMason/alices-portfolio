@@ -4,7 +4,8 @@
     "index": 1,
     "title": "Tufted Work",
     "mainImage": {
-      "path": "/src/assets/images/1.webp"
+      "path": "/src/assets/images/1.webp",
+      "alt": "Tufted Work main image"
     },
     "images": [
       {
@@ -19,7 +20,8 @@
     "index": 2,
     "title": "The Importance of Touch",
     "mainImage": {
-      "path": "/src/assets/images/2.webp"
+      "path": "/src/assets/images/2.webp",
+      "alt": "The Importance of Touch main image"
     },
     "images": [
       {

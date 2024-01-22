@@ -1,8 +1,5 @@
-import { getCollection } from "astro:content";
-import type { CollectionEntry } from "astro:content";
 import content from "./content.json";
-
-export type ProjectCollectionEntry = CollectionEntry<"project">;
+import type { ImageMetadata } from "astro";
 
 export type Project = (typeof content)[0];
 
@@ -12,8 +9,10 @@ export function getProjects() {
   });
 }
 
-export function getImages() {
-  return import.meta.glob<{ default: ImageMetadata }>(
-    "/src/assets/images/*.{jpeg,jpg,png,gif,webp}"
-  );
+type ImageResults = {
+  [key: string]: () => Promise<{ default: ImageMetadata }>;
+};
+
+export function getImages(): ImageResults {
+  return import.meta.glob("/src/assets/images/*.{jpeg,jpg,png,gif,webp}");
 }

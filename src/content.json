@@ -1,0 +1,30 @@
+[
+    {
+        "id": "uuid-1",
+        "title": "The Importance of Touch",
+        "mainImage": {
+            "path": "/src/assets/images/1.webp"
+        },
+        "images": [
+            {
+                "path": "/src/assets/images/1.webp",
+                "alt": "First image"
+            }
+        ],
+        "slug": "the-importance-of-touch"
+    },
+    {
+        "id": "uuid-2",
+        "title": "Tufted Work",
+        "mainImage": {
+            "path": "/src/assets/images/2.webp"
+        },
+        "images": [
+            {
+                "path": "/src/assets/images/2.webp",
+                "alt": "First image"
+            }
+        ],
+        "slug": "tufted-work"
+    }
+]

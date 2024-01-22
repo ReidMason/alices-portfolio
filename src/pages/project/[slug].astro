@@ -1,8 +1,8 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import {getProjects, type ProjectCollectionEntry} from '@/utils.ts';
-import { ViewTransitions } from 'astro:transitions';
-import { Image } from 'astro:assets';
+import Layout from "@/layouts/Layout.astro";
+import { getProjects, type Project } from "@/utils.ts";
+import { ViewTransitions } from "astro:transitions";
+import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
   const projects = await getProjects();
@@ -17,31 +17,54 @@ export async function getStaticPaths() {
 }
 
 interface Props {
-  project: ProjectCollectionEntry;
+  project: Project;
 }
 
 const { project } = Astro.props;
 ---
 
-<Layout title={project.data.title}>
+<Layout title={project.title}>
   <ViewTransitions />
   <main class="p-20">
-    <h1 transition:name={project.data.title} class="text-5xl mb-8 md:mb-12 leading-tight">
-      {project.data.title}
+    <h1
+      transition:name={project.title}
+      class="text-5xl mb-8 md:mb-12 leading-tight"
+    >
+      {project.title}
     </h1>
 
     <div class="grid md:grid-cols-2 gap-4 md:gap-8">
       <div class="flex gap-8 flex-col">
-        {project.data.images.map((image, i) => {
-          if (i % 2 != 0) return;
-          return <Image transition:name={project.data.title + " " + image.alt} src={image.image} alt={image.alt} width="3024" height="4032" />
-        })}
+        {
+          project.images.map((image, i) => {
+            if (i % 2 != 0) return;
+            return (
+              <Image
+                transition:name={project.title + " " + image.alt}
+                src={image.path}
+                alt={image.alt}
+                width="800"
+                height="500"
+              />
+            );
+          })
+        }
       </div>
       <div class="flex gap-8 flex-col">
-        {project.data.images.map((image, i) => {
-          if (i % 2 === 0) return;
-          return <Image transition:name={image.alt} src={image.image} alt={image.alt} width="3024" height="4032" />
-        })}
+        {
+          project.images.map((image, i) => {
+            if (i % 2 === 0) return;
+            return (
+              <Image
+                transition:name={image.alt}
+                src={image.path}
+                alt={image.alt}
+                width="800"
+                height="500"
+              />
+            );
+          })
+        }
       </div>
     </div>
   </main>

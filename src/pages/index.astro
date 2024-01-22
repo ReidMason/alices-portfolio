@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import { ViewTransitions } from "astro:transitions";
 import { getProjects, getMainImage } from "@/utils.ts";
 
-const projects = await getProjects();
+const projects = getProjects();
 ---
 
 <Layout title="Alice Collins">
@@ -14,22 +14,22 @@ const projects = await getProjects();
       {
         projects.map((project) => (
           <li>
-            <a href={`/${project.collection}/${project.slug}`} class="group">
+            <a href={`/project/${project.slug}`} class="group">
               <div class="relative pb-[75%] w-full">
                 <div class="image-wrapper group-hover:opacity-90 transition-opacity duration-200">
                   <Image
                     transition:name={
-                      project.data.title + " " + getMainImage(project).alt
+                      project.title + " " + project.mainImage.path
                     }
-                    src={getMainImage(project).image}
-                    alt={getMainImage(project).alt}
+                    src={project.mainImage.path}
+                    alt="Temp"
                     width="800"
                     height="500"
                   />
                 </div>
               </div>
-              <p transition:name={project.data.title} class="mt-3 text-xl">
-                {project.data.title}
+              <p transition:name={project.title} class="mt-3 text-xl">
+                {project.title}
               </p>
             </a>
           </li>

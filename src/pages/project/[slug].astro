@@ -5,7 +5,7 @@ import { ViewTransitions } from "astro:transitions";
 import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
-  const projects = await getProjects();
+  const projects = getProjects();
   return projects.map((project) => {
     return {
       params: { slug: project.slug },
@@ -41,7 +41,7 @@ const images = getImages();
             if (i % 2 != 0) return;
             return (
               <Image
-                transition:name={project.title + " " + image.alt}
+                transition:name={project.title + " " + image.path}
                 src={images[image.path]()}
                 alt={image.alt}
                 width="800"
@@ -57,7 +57,7 @@ const images = getImages();
             if (i % 2 === 0) return;
             return (
               <Image
-                transition:name={image.alt}
+                transition:name={project.title + " " + image.path}
                 src={image.path}
                 alt={image.alt}
                 width="800"

@@ -45,3 +45,23 @@ const images = getImages();
     @apply object-cover absolute w-full h-full;
   }
 </style>
+
+<script is:inline>
+  const images = document.querySelectorAll(".image-wrapper img");
+
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  async function transition_images() {
+    images.forEach((image) => {
+      image.classList.add("opacity-0", "transition-opacity", "duration-200");
+    });
+    await sleep(200);
+    images.forEach((image) => {
+      image.classList.remove("opacity-0");
+    });
+  }
+
+  transition_images();
+</script>
